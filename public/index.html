@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>签到主页</title>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h2>当前用户：<span id="currentUser"></span></h2>
+        <button id="btnQD">签到</button>
+
+        <div class="input">
+            <label for="jd">经度：</label>
+            <input id="jd" type="number">
+            <label for="wd">纬度：</label>
+            <input id="wd" type="number">
+            <button id="btnQDReal">签到</button>
+        </div>
+    </div>
+
+    <script>
+       
+        $(function(){
+            // 登录判断，如果没登录，跳转到登录页。
+            // cookie是保留到客户端的一段数据，数据不安全，不建议保存账号，密码，银行卡等相对安全性要求较高的数据,保存其他的数据建议加密。保存的数据大小有限制，大概是4kb
+            // jQuery.cookie.js
+
+            var loginName = $.cookie("loginName");
+            if(!loginName){
+                location.href = "/login.html"; 
+                return;
+            }
+            // console.log(loginName);
+            $('#currentUser').text(loginName);
+            $('#btnQD').click(function(){
+                // $('#btnQD').hide(1000) 优化后
+                $(this).hide(1000);
+                // 转化为原生JS console.dir($('#btnQD')[0])
+                $('.input').show(1000);
+            })
+            $('#btnQDReal').click(function(){
+                // 客户端的简单判断
+                var jd = $.trim($('#jd').val());
+                var wd = $.trim($('#wd').val());
+                if(!jd || !wd){
+                    alert("输入内容");
+                    return;
+                }
+
+                $.post("/api/qd", {jd, wd}, function(data){
+                    console.log(data);
+                    if(data.code != 200){
+                        alert(data.message);
+                        return;
+                    }
+
+                    // $('.input').html("<span>"+data.message+"</span>");
+                    // 使用ES6新增加的"模板字符串"语法,`${变量名}`
+                    $(".input").html(`<span>${data.message}</span>`);
+                })
+            })
+
+        })
+
+    </script>
+</body>
+</html>

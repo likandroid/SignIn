@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="group">
+            <label for="accountR">账号：</label>
+            <input type="text" placeholder="账号" id="accountR">
+        </div>
+        <div class="group">
+            <label for="passwordR">密码：</label>
+            <input type="password" placeholder="密码" id="passwordR">
+        </div>
+        <div class="group">
+            <label for="passwordRAgain">确认密码：</label>
+            <input type="password" id="passwordRAgain">
+        </div>
+        <div class="group">
+            <button id="btnRegister">注册</button>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+
+            $('#btnRegister').on("click", function () {
+                var accountR = $.trim($('#accountR').val());
+                var passwordR = $.trim($('#passwordR').val());
+                var passwordRAgain = $.trim($('#passwordRAgain').val());
+                if (!accountR || !passwordR || !passwordRAgain) {
+
+                    alert("账号或密码不能为空");
+                    return;
+                }
+                
+                $.post("/api/register", { accountR, passwordR, passwordRAgain },function (data) {
+                    // console.log(data);
+                    if (data.code != 200) {
+                        alert(data.message);
+                        return;
+                    }
+                    location.href = "/login.html";
+                    
+                })
+
+            })
+
+
+        })
+    </script>
+</body>
+
+</html>

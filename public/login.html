@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="group">
+            <label for="account">账号：</label>
+            <input type="text" placeholder="账号" name="" id="account">
+        </div>
+        <div class="group">
+            <label for="password">密码：</label>
+            <input type="password" placeholder="密码" name="" id="password">
+        </div>
+        <div class="group">
+            <input id="remember" type="checkbox">
+            <label for="remember">记住账号？</label>
+        </div>
+        <div class="group">
+            <button id="btnLogin">登录</button>
+        </div>
+        <a href="register.html">注册</a>
+    </div>
+
+
+    <script>
+        $(function(){
+            
+            var remember = $("#remember").prop('checked');
+            
+
+            var rememberFlag = $.cookie('remember');
+            if(rememberFlag){
+                console.log("wedwfr");
+                $("#remember").prop('checked',true);
+                $("#account").val($.cookie('loginName'));
+            }
+            $("#btnLogin").on("click",function(){
+                var loginName = $.trim($("#account").val());
+                var password = $.trim($("#password").val());
+                var remember = $("#remember").prop('checked');
+                console.log(loginName + "---" + password);
+                if(!loginName || !password){
+                    alert("账号和密码不能为空！");
+                    return;
+                }
+
+                // console.log(remember);
+                // 参数1:接口地址，参数2：向服务器传递的数据，参数3：服务器响应成功时的回调函数{loginName,password}是{loginName:loginName,password:password}的缩写形式
+                $.post("/api/login",{loginName,password},function(data){
+                    if(data.code != 200){
+                        alert(data.message);
+                        return;
+                    }
+                    if(remember){
+                        $.cookie("remember",true);
+                    }
+                    $.cookie("loginName",loginName);
+                    location.href = "/index.html";
+                    // console.log(data);
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>

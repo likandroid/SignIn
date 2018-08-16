@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* border-box设置了元素的宽高时，包含内边距和边框 */
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.container{
+    width: 850px;
+    border: 1px solid #ccc;
+    margin: 10px auto 0;
+}
+.container .group{
+    height: 40px;
+    line-height: 40px;
+    padding:  0 10px;
+    position: relative;
+    left: 25%;
+}
+.container input{
+    padding: 5px;
+}
+#btnRegister{
+    padding: 5px 10px;
+}

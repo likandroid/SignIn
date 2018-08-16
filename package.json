@@ -1,0 +1,14 @@
+{
+  "name": "qiandao",
+  "version": "1.0.0",
+  "description": "使用express配合ajax实现签到小功能",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lk",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* border-box设置了元素的宽高时，包含内边距和边框 */
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.container{
+    width: 500px;
+    height: 200px;
+    margin: 50px auto 0;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    padding-top: 20px;
+}
+.group{
+    height: 40px;
+    /* border: 1px solid #ccc; */
+    padding-left: 10px;
+    line-height: 40px;
+    position: relative;
+    left: 50%;
+    margin-left: -25%;
+}
+.group input{
+    padding: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.group label[for="remember"]{
+    font-size: 12px;
+}
+.group button{
+    width: 80px;
+    font-size: 14px;
+    padding: 3px;
+}
